@@ -250,8 +250,8 @@ instead of
 \uwave default
 \noun default
 \color inherit
- defined by Rabiner in V.
- A as 
+ (to comply with the notation of Rabiner in V.
+ A) as 
 \begin_inset Formula $\phi_{t}(i)=max_{d=1}^{D}\{\phi_{t-d}(i-1)+log[p_{i}(d)]+\Sigma_{s=t-d+1}^{t}log[b_{i}(O_{s})]\}$
 \end_inset
 
@@ -354,7 +354,7 @@ update
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $d=\phi_{t}(q_{t})$
+\begin_inset Formula $d=\chi_{t}(q_{t})$
 \end_inset
 
 
