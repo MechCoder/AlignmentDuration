@@ -43,7 +43,7 @@ pathEvaluation = os.path.join(parentDir, 'AlignmentEvaluation')
 sys.path.append(pathEvaluation)
 from WordLevelEvaluator import _evalAlignmentError, evalAlignmentError, tierAliases
 from TextGrid_Parsing import TextGrid2WordList
-from PraatVisualiser import mlf2TabFormat
+from PraatVisualiser import tokenList2TabFile
 
 # TODO: read mfccs with matlab htk_read
 # sys.path.append('/Users/joro/Downloads/python-matlab-bridge-master')
@@ -118,11 +118,10 @@ def doitOneChunk(argv):
     
 
 
-def alignDependingOnWithDuration(URIrecordingNoExt, whichSection, pathToComposition, withDuration, evalLevel, params, usePersistentFiles, htkParser):
+def alignDependingOnWithDuration(URIrecordingNoExt, whichSection, pathToComposition, withDuration, withSynthesis, evalLevel, params, usePersistentFiles, htkParser):
     '''
     call alignment method depending on whether duration or htk  selected 
     '''
-    withSynthesis = False
     Phonetizer.initLookupTable(withSynthesis)
     
     tokenLevelAlignedSuffix, phonemesAlignedSuffix = determineSuffix(withDuration, evalLevel)
@@ -147,7 +146,11 @@ def alignDependingOnWithDuration(URIrecordingNoExt, whichSection, pathToComposit
         grTruthDurationWordList = []
     
     # store decoding results in a file
-    detectedAlignedfileName =  mlf2TabFormat(detectedWordList, URIrecordingNoExt, tokenLevelAlignedSuffix)
+    detectedAlignedfileName = []
+    
+    tokenLevelAlignedSuffix = '.scoreDeviationoDELETE'
+    detectedAlignedfileName =  tokenList2TabFile(detectedWordList, URIrecordingNoExt, tokenLevelAlignedSuffix)
+    
         
     return alignmentErrors, detectedWordList, grTruthDurationWordList, detectedAlignedfileName
     
@@ -181,7 +184,7 @@ def alignOneChunk(URIrecordingNoExt, pathToComposition, whichSection, htkParser,
     detectedWordList, grTruthWordList = decodeAudioChunk(URIrecordingNoExt, decoder, evalLevel, usePersistentFiles)
     
 ### VISUALIZE
-#     decoder.lyricsWithModels.printWordsAndStatesAndDurations(decoder.path)
+#    decoder.lyricsWithModels.printWordsAndStatesAndDurations(decoder.path)
 
 #################### evaluate
     alignmentErrors = [2, 3, 4]
@@ -205,16 +208,19 @@ def decodeAudioChunk( URI_recording_noExt, decoder, evalLevel, usePersistentFile
         decoder.lyricsWithModels.duration2numFrameDuration(observationFeatures, URI_recording_noExt)
         
 
-    grTruthWordList = []
-    grTruthWordList  = getGroundTruthDurations(URI_recording_noExt, decoder, evalLevel)
+    refDurationsWordList = []
+    refDurationsWordList  = getGroundTruthDurations(URI_recording_noExt, decoder, evalLevel)
     
     detectedWordList = []
-    decoder.decodeAudio(observationFeatures, usePersistentFiles, URI_recording_noExt, decoder.lyricsWithModels.getDurationInFramesList())
-    detectedWordList = decoder.path2ResultWordList()
-        
+#     decoder.decodeAudio(observationFeatures, usePersistentFiles, URI_recording_noExt, decoder.lyricsWithModels.getDurationInFramesList())
+#     detectedWordList = decoder.path2ResultWordList()
+
+#       use to calc score deviations
+    detectedWordList = refDurationsWordList
+      
     
     
-    return detectedWordList, grTruthWordList
+    return detectedWordList, refDurationsWordList
 
 
 

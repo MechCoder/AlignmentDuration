@@ -210,6 +210,8 @@ class LyricsWithModels(Lyrics):
 #         numFramesPerMinUnit = NUM_FRAMES_PERSECOND * durationMinUnit
         totalScoreDur = self.getTotalDuration()
         numFramesPerMinUnit   = float(len(observationFeatures) - 2 * AVRG_TIME_SIL * NUM_FRAMES_PERSECOND) / float(totalScoreDur)
+#         numFramesPerMinUnit   = float(len(observationFeatures)) / float(totalScoreDur)
+
         
         # DEBUG: hardcoded read from groundTruth for kimseye
         # numFramesPerMinUnit = 3.67
