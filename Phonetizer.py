@@ -11,7 +11,7 @@ pathUtils = os.path.join(parentDir, 'utilsLyrics')
 
 if not pathUtils in sys.path:
     sys.path.append(pathUtils )
-from Utilz import loadTextFile
+from utilsLyrics.Utilz import loadTextFile
 
 
 def readLookupTable(URItable):

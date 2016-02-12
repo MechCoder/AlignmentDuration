@@ -31,7 +31,7 @@ from Utilz import writeListOfListToTextFile, writeListToTextFile,\
 # parser of htk-build speech model
 pathHtkModelParser = os.path.join(parentDir, 'pathHtkModelParser')
 sys.path.append(pathHtkModelParser)
-from htk_converter import HtkConverter
+from htkparser.htk_converter import HtkConverter
 
 # Alignment with HTK
 pathAlignmentStep = os.path.join(parentDir, 'AlignmentStep')
