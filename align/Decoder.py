@@ -269,8 +269,15 @@ class Decoder(object):
         else:
             detectedTokenList = []
             logger.warning( 'parsing of detected  {} not implemented'.format( tokenLevel) )
+        
+        detectedTokenListNoSAZ = []
+        for currToken in detectedTokenList:
+            if currToken[2] != '_SAZ_' and currToken[2] != 'SAZ':
+                detectedTokenListNoSAZ.append(currToken)
+                
+                
             
-        return detectedTokenList 
+        return detectedTokenListNoSAZ 
     
     
     
