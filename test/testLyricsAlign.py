@@ -49,11 +49,12 @@ def testLyricsAlign():
     
     
     
-    ###  for Juanjos pitch
-#     extractedPitch = os.path.splitext(audioFileURI)[0] + '.pitch'
-#     with open(extractedPitch) as f:
-#         extractedPitchList = json.load(f)
-    extractedPitchList = None
+    ###  read pitch
+#     /Users/joro/Documents/Phd/UPF/voxforge/myScripts/AlignmentDuration/example/nihavent--sarki--aksak--gel_guzelim--faiz_kapanci/18_Munir_Nurettin_Selcuk_-_Gel_Guzelim_Camlicaya/18_Munir_Nurettin_Selcuk_-_Gel_Guzelim_Camlicaya.pitch
+    extractedPitch = os.path.splitext(audioFileURI)[0] + '.pitch'
+    with open(extractedPitch) as f:
+        extractedPitchList = json.load(f)
+#     extractedPitchList = None
     
     if WITH_SECTION_ANNOTATIONS:
         

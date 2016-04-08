@@ -7,9 +7,10 @@ git pull
 ~/env/bin/python setup.py install
 
 
+TO RUN ON KORA: 
 
-locally:
+test without fetching audio and text:
 /homedtic/georgid//env/bin/python /homedtic/georgid/AlignmentDuration/test/testLyricsAlign.py
 
-on dunya server:
-/homedtic/georgid//env/bin/python/env/bin/python /homedtic/georgid//env/bin/python/test2/pycompmusic/compmusic/extractors/makam/lyricsalign.py
+from pycompmusic: # (has to configure path to ffmpeg and make sure HCopy is correct in FeatureExtractor.py)
+/homedtic/georgid//env/bin/python /homedtic/georgid/test2/pycompmusic/compmusic/extractors/makam/lyricsalign.py
