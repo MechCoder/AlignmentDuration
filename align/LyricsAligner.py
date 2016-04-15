@@ -86,7 +86,7 @@ def alignRecording( symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFi
         tokenLevelAlignedSuffix = determineSuffix(WITH_DURATIONS, ParametersAlgo.WITH_ORACLE_PHONEMES, ParametersAlgo.WITH_ORACLE_ONSETS, DETECTION_TOKEN_LEVEL)
     
     
-        totalDetectedTokenList = []
+        detectedSectionsList = []
         
         totalCorrectDurations = 0
         totalDurations = 0
@@ -106,11 +106,11 @@ def alignRecording( symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFi
     #             for sectin in currSectionLink.selectedSections:
     #                 print "result sections: {}".format(sectin)
                 
-                totalDetectedTokenList.extend(detectedTokenList)
+                detectedSectionsList.extend(detectedTokenList)
             # sectionLinks- list of objects of class sectionLink with the field selectedSections set after slignment
             sectionLinksDict = extendSectionLinksSelectedSections(sectionLinksDict, mr.sectionLinks)
             
-            return totalDetectedTokenList, sectionLinksDict        
+            return detectedSectionsList, sectionLinksDict        
         
         else: # with Annotations
             
@@ -148,11 +148,11 @@ def alignRecording( symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFi
                 totalDurations += totalDuration
                 
                 
-                totalDetectedTokenList.extend(detectedTokenList)
+                detectedSectionsList.append(detectedTokenList)
             
             accuracy = totalCorrectDurations / totalDurations
             logger.info("accuracy: {:.2f}".format(accuracy))     
-            return totalDetectedTokenList, sectionLinksDict
+            return detectedSectionsList, sectionLinksDict
         
 
 def loadMakamRecording(symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFileURI,  withAnnotations):
@@ -248,7 +248,7 @@ def  alignLyricsSection( lyrics, extractedPitchList,  withSynthesis, listNonVoca
             
             phiOptPath = {'phi': decoder.path.phiPathLikelihood}
             detectedPath = decoder.path.pathRaw
-            tokenList2TabFile(detectedTokenList, URIRecordingChunkResynthesizedNoExt, tokenLevelAlignedSuffix, currSectionLink.beginTs)
+  #          tokenList2TabFile(detectedTokenList, URIRecordingChunkResynthesizedNoExt, tokenLevelAlignedSuffix, currSectionLink.beginTs)
             
             with open(URIRecordingChunkResynthesizedNoExt + tokenLevelAlignedSuffix + '_phi', 'w'  ) as f:
                 json.dump( phiOptPath, f)

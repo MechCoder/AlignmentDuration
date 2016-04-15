@@ -238,7 +238,7 @@ class Decoder(object):
       
         
         
-    def path2ResultWordList(self, path, tokenLevel='words'):
+    def path2ResultTokenList(self, path, tokenLevel='words'):
         '''
         makes sense of path indices : maps numbers to states and phonemes.
         uses self.lyricsWithModels.statesNetwork and self.lyricsWithModels.listWords) 
@@ -262,22 +262,21 @@ class Decoder(object):
                 for i in range(howManyMissedStates):
                     self.path.indicesStateStarts[:0] = [0]
         dummy= 0
+
+                
         if tokenLevel == 'words':
-            detectedTokenList = expandlyrics2WordList (self.lyricsWithModels, self.path, dummy, _constructTimeStampsForTokenDetected)
+            detectedTokenListNoSAZ = expandlyrics2WordList (self.lyricsWithModels, self.path, dummy, _constructTimeStampsForTokenDetected)
         elif tokenLevel == 'syllables':
-            detectedTokenList = expandlyrics2SyllableList (self.lyricsWithModels, self.path, dummy, _constructTimeStampsForTokenDetected)
+            detectedTokenListNoSAZ = expandlyrics2SyllableList (self.lyricsWithModels, self.path, dummy, _constructTimeStampsForTokenDetected)
         else:
-            detectedTokenList = []
+            detectedTokenListNoSAZ = []
             logger.warning( 'parsing of detected  {} not implemented'.format( tokenLevel) )
         
-        detectedTokenListNoSAZ = []
-        for currToken in detectedTokenList:
-            if currToken[2] != '_SAZ_' and currToken[2] != 'SAZ':
-                detectedTokenListNoSAZ.append(currToken)
+
                 
                 
             
-        return detectedTokenListNoSAZ 
+        return detectedTokenListNoSAZ
     
     
     
@@ -303,7 +302,7 @@ class Decoder(object):
         
         writeListToTextFile(self.path.pathRaw, None , outputURI)
         
-        detectedTokenList = self.path2ResultWordList(self.path, DETECTION_TOKEN_LEVEL)
+        detectedTokenList = self.path2ResultTokenList(self.path, DETECTION_TOKEN_LEVEL)
         
         # DEBUG info
     #     decoder.lyricsWithModels.printWordsAndStatesAndDurations(decoder.path)
