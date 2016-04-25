@@ -115,7 +115,7 @@ def alignRecording( symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFi
         else: # with Annotations
             
             for  currSectionAnno in mr.sectionAnnos :
-                if currSectionAnno.melodicStructure.startswith('ARANAGME'):
+                if currSectionAnno.lyricStructure.startswith('INSTRUMENTAL'):
                     print("skipping sectionLink {} with no lyrics ...".format(currSectionAnno.melodicStructure))
                     continue            
                 if not hasattr(currSectionAnno, 'scoreSection'):
@@ -126,7 +126,7 @@ def alignRecording( symbtrtxtURI, sectionMetadataDict, sectionLinksDict, audioFi
          
                 lyricsStr = lyrics.__str__()
                 if not lyricsStr or lyricsStr=='None' or  lyricsStr =='_SAZ_':
-                    print("skipping sectionLink {} with no lyrics ...".format(currSectionLink.melodicStructure))
+                    print("skipping sectionLink {} with no lyrics ...".format(currSectionAnno.melodicStructure))
                     continue
                 
                 URIRecordingChunkResynthesizedNoExt = createNameChunk(recordingNoExtURI, currSectionAnno.beginTs, currSectionAnno.endTs) 
